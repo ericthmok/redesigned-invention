@@ -17,7 +17,7 @@ const thoughtController = {
             res.status(400).json(err);
         });
     },
-    addThought({ params}, res){
+    addThought({ params, body}, res){
         Thought.create(body)
         .then(({_id})=>{
             return User.findOneAndUpdate(
@@ -33,7 +33,7 @@ const thoughtController = {
             }
         })
     },
-    updateThough({params},res){
+    updateThought({params},res){
         Thought.findOneAndUpdate({_id: params.thoughtId}, body, {runValidators: true, new: true})
         .then(thoughtData=>{
             if(!thoughtData){
