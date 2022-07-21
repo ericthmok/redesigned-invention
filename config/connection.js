@@ -1,6 +1,6 @@
-const mongooese = require('mongoose');
+const mongoose = require('mongoose');
 
-mongooese.connect('mongodb://localhost:27017',{
+mongoose.connect('mongodb://localhost:27017/socialDB',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
