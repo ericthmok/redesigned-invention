@@ -15,12 +15,12 @@ const userController = {
         .catch(err=>res.status(400).json(err));
     },
     getUserById(req,res){
-        User.findOne({_id: req.params.id})
+        User.findOne({_id: req.params.userId})
         .then(userData=>res.json(userData))
         .catch(err=>res.status(400).json(err));
     },
     updateUser(req,res){
-        User.findOneAndUpdate({_id:req.params.id},body,{new:true},{runValidators: true})
+        User.findOneAndUpdate({_id:req.params.userId},body,{new:true},{runValidators: true})
         .then(userData=>{
             if(!userData){
                 res.status(404).json({message:'Error'});
@@ -29,16 +29,16 @@ const userController = {
         })
     },
     deleteUser(req, res){
-        User.findOneAndDelete({_id: req.params.id})
+        User.findOneAndDelete({_id: req.params.userId})
         .then(userData=>{
             if(!userData){
-                res.status(404).json({message:'User Deleted'});
+                res.status(404).json({message:'Error'});
                 return;
             }
         })
     },
     addFriend(req,res){
-        User.findOneAndUpdate({_id:req.params.id},{$push:{friends:req.params.friendId}},{new:true, runValidators:true})
+        User.findOneAndUpdate({_id:req.params.userId},{$push:{friends:req.params.friendId}},{new:true, runValidators:true})
         .then(userData=>{
             if(!userData){
                 res.stauts(404).json({message:'Error'});
@@ -47,7 +47,7 @@ const userController = {
         })
     },
     removeFriend(req, res){
-        User.findOneAndUpdate({_id: req.params.id},{$pull:{friends:req.params.friendId}},{new:true})
+        User.findOneAndUpdate({_id: req.params.userId},{$pull:{friends:req.params.friendId}},{new:true})
         .then(userData=>{
             if(!userData){
                 res.status(404).json({message:'Error'});
