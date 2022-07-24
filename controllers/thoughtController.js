@@ -2,27 +2,27 @@ const { Thought, User} = require("../models");
 
 const thoughtController = {
     getThought(req, res){
-        Thought.find({})
+        Thought.find()
         .then(thoughtData=>res.json(thoughtData))
         .catch((err)=>{
             console.log(err);
             res.status(400).json(err);
         });
     },
-    getThoughtById({params},res){
-        Thought.findOne({_id: params.thoughtId})
+    getThoughtById(req,res){
+        Thought.findOne({_id: req.params.thoughtId})
         .then(thoughtData=>res.json(thoughtData))
         .catch((err)=>{
             console.log(err);
             res.status(400).json(err);
         });
     },
-    addThought({ params, body}, res){
-        Thought.create(body)
-        .then(({_id})=>{
+    addThought(req, res){
+        Thought.create(req.body)
+        .then((thought)=>{
             return User.findOneAndUpdate(
-                {_id: params.userId},
-                {$push: {thought: _id}},
+                {_id: req.body.userId},
+                {$push: {thought: thought._id}},
                 {new: true}
             );
         })
@@ -33,8 +33,8 @@ const thoughtController = {
             }
         })
     },
-    updateThought({params},res){
-        Thought.findOneAndUpdate({_id: params.thoughtId}, body, {runValidators: true, new: true})
+    updateThought(req,res){
+        Thought.findOneAndUpdate({_id: req.params.thoughtId}, body, {runValidators: true, new: true})
         .then(thoughtData=>{
             if(!thoughtData){
                 res.status(404).json({message:'Error'});
@@ -42,8 +42,8 @@ const thoughtController = {
             }
         })
     },
-    deleteThought({params}, res){
-        Thought.findByIdAndDelete({_id: params.thoughtId}, {runValidators: true, new:true})
+    deleteThought(req, res){
+        Thought.findByIdAndDelete({_id: req.params.thoughtId}, {runValidators: true, new:true})
         .then(thoughtData=>{
             if(!thoughtData){
                 res.status(404).json({message:'Error'});
@@ -51,7 +51,7 @@ const thoughtController = {
             }
         })
     },
-    addReaction({params}, res){
+    addReaction(req, res){
         Thought.findOneAndUpdate({_id: params.thoughtId}, {$push:{reactions: body}}, {new: true})
         .then(thoughtData=>{
             if(!thoughtData){
@@ -60,7 +60,7 @@ const thoughtController = {
             }
         })
     },
-    deleteReaction({params}, res){
+    deleteReaction(req, res){
         Thought.findOneAndUpdate({_id: params.thoughtId},{$pull:{reactions:{reactionId: params.reactionId}}},{new: true})
         .then(thoughtData=>{
             if(!thoughtData){
