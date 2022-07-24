@@ -20,7 +20,7 @@ const userController = {
         .catch(err=>res.status(400).json(err));
     },
     updateUser(req,res){
-        User.findOneAndUpdate({_id:req.params.userId},body,{new:true},{runValidators: true})
+        User.findOneAndUpdate({_id:req.params.userId},{$set:req.body},{runValidators: true})
         .then(userData=>{
             if(!userData){
                 res.status(404).json({message:'Error'});

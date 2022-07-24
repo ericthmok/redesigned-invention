@@ -2,6 +2,16 @@
 ### Motivation: Build an API for the social network to use a NoSQL database
 ### Reasons for building the project: Handle a large amount of data.
 
+### User Story
+As a social media startup
+I want an API for my social network that uses a No SQL database
+So that my website can handle large amounts of data
+
+### Screenshots
+
+![alt text](./assets/photo/create.png)
+![alt text](./assets/photo/getall.png)
+![alt text](./assets/photo/getone.png)
 ## License
 MIT License
 
@@ -25,4 +35,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Video link: https://drive.google.com/file/d/18-qquvnNO8HvL5NCkxMYdolE-Shu38xu/view
+Video link: https://drive.google.com/file/d/1yAstATvzw9Y1o0zVPlysWjF8qwRWChs4/view
