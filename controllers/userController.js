@@ -32,13 +32,13 @@ const userController = {
         User.findOneAndDelete({_id: req.params.id})
         .then(userData=>{
             if(!userData){
-                res.status(404).json({message:'Error'});
+                res.status(404).json({message:'User Deleted'});
                 return;
             }
         })
     },
-    addFriend({params},res){
-        User.findOneAndUpdate({_id:req.params.id},{$push:{friends:params.friendId}},{new:true, runValidators:true})
+    addFriend(req,res){
+        User.findOneAndUpdate({_id:req.params.id},{$push:{friends:req.params.friendId}},{new:true, runValidators:true})
         .then(userData=>{
             if(!userData){
                 res.stauts(404).json({message:'Error'});
@@ -47,7 +47,7 @@ const userController = {
         })
     },
     removeFriend(req, res){
-        User.findOneAndUpdate({_id: req.params.id},{$pull:{friends:params.friendId}},{new:true})
+        User.findOneAndUpdate({_id: req.params.id},{$pull:{friends:req.params.friendId}},{new:true})
         .then(userData=>{
             if(!userData){
                 res.status(404).json({message:'Error'});

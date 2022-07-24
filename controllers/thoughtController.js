@@ -3,7 +3,7 @@ const { Thought, User} = require("../models");
 const thoughtController = {
     getThoughts(req, res){
         Thought.find({})
-        .then(thoughtData=>res.json(thoughtData))
+        .then(userData=>res.json(userData))
         .catch((err)=>{
             console.log(err);
             res.status(400).json(err);
@@ -61,7 +61,7 @@ const thoughtController = {
         })
     },
     deleteReaction(req, res){
-        Thought.findOneAndUpdate({_id: req.params.thoughtId},{$pull:{reactions:{reactionId: params.reactionId}}},{new: true})
+        Thought.findOneAndUpdate({_id: req.params.thoughtId},{$pull:{reactions:{reactionId: req.params.reactionId}}},{new: true})
         .then(thoughtData=>{
             if(!thoughtData){
                 res.status(404).json({message:'Error'});
